@@ -1,0 +1,62 @@
+name: milomi39
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: milomi39-app:php8.4
+    init: true
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8098}:8000"
+    environment:
+      APP_NAME: ${APP_NAME:-Milomi39}
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:${APP_PORT:-8098}
+      APP_KEY: ${APP_KEY:-}
+      APP_LOCALE: ${APP_LOCALE:-ru}
+      APP_FALLBACK_LOCALE: ${APP_FALLBACK_LOCALE:-ru}
+      APP_FAKER_LOCALE: ${APP_FAKER_LOCALE:-ru_RU}
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-laravel}
+      DB_USERNAME: ${DB_USERNAME:-laravel}
+      DB_PASSWORD: ${DB_PASSWORD:-laravel}
+      RUN_MIGRATIONS: "true"
+    volumes:
+      - laravel_storage:/var/www/html/storage
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "php", "-r", "exit(@file_get_contents('http://127.0.0.1:8000') === false ? 1 : 0);"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 20s
+
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${DB_FORWARD_PORT:-3308}:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-laravel}
+      MYSQL_USER: ${DB_USERNAME:-laravel}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-laravel}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+volumes:
+  laravel_storage:
+  mysql_data:
