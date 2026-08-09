@@ -27,7 +27,10 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-laravel}
       RUN_MIGRATIONS: "true"
     volumes:
+      - .:/var/www/html
       - laravel_storage:/var/www/html/storage
+      - laravel_vendor:/var/www/html/vendor
+      - laravel_node_modules:/var/www/html/node_modules
     depends_on:
       mysql:
         condition: service_healthy
@@ -37,6 +40,21 @@ services:
       timeout: 3s
       retries: 10
       start_period: 20s
+
+  vite:
+    image: milomi39-app:php8.4
+    init: true
+    restart: unless-stopped
+    entrypoint: []
+    working_dir: /var/www/html
+    command: npm run dev -- --host 0.0.0.0
+    ports:
+      - "127.0.0.1:${VITE_PORT:-5174}:5173"
+    volumes:
+      - .:/var/www/html
+      - laravel_node_modules:/var/www/html/node_modules
+    depends_on:
+      - app
 
   mysql:
     image: mysql:8.4
@@ -59,4 +77,6 @@ services:
 
 volumes:
   laravel_storage:
+  laravel_vendor:
+  laravel_node_modules:
   mysql_data:

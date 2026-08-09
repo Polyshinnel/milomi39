@@ -23,11 +23,6 @@ if [ -z "${APP_KEY:-}" ]; then
     export APP_KEY
 fi
 
-# Keep the resolved key in a minimal runtime dotenv file so the web process and
-# `artisan test` use the same key without baking a secret into the image.
-umask 077
-printf 'APP_KEY=%s\n' "$APP_KEY" > .env
-
 if [ "${DB_CONNECTION:-}" = "mysql" ]; then
     attempts=0
 
