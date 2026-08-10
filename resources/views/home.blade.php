@@ -130,6 +130,174 @@
                 </ul>
             </div>
         </section>
+
+        <section id="services" class="services" aria-labelledby="services-title">
+            <h2 id="services-title" class="services__title">В НАШЕМ ПРОСТРАНСТВА ВАС ЖДУТ:</h2>
+
+            <div class="services__grid">
+                @foreach ([
+                    ['image' => '1.webp', 'title' => 'МАССАЖ ЛИЦА И ТЕЛА', 'description' => 'Расслабляющие и лифтинг программы'],
+                    ['image' => '2.webp', 'title' => 'ОСОБЕННЫЕ СПА-ПРОГРАММЫ ПОД СОСТОЯНИЕ', 'description' => 'Глубокое восстановление и релаксация'],
+                    ['image' => '3.webp', 'title' => 'САМАЯ ЗАБОТЛИВАЯ ЛАЗЕРНАЯ ЭПИЛЯЦИЯ', 'description' => 'Комфорт и результат с первой процедуры'],
+                    ['image' => '4.webp', 'title' => 'ВЫГОДНЫЕ КОМПЛЕКСЫ', 'description' => 'Подбор процедур под ваш запрос'],
+                    ['image' => '5.webp', 'title' => 'КОСМЕТОЛОГИЯ БЕЗ УКОЛОВ', 'description' => 'Уход, который работает на ваш результат'],
+                    ['image' => '6.webp', 'title' => 'ПРОФЕССИОНАЛЬНАЯ КОСМЕТИКА', 'description' => 'Подбор средств для домашнего ухода'],
+                ] as $service)
+                    <article class="service-card">
+                        <img
+                            src="{{ asset('img/service/' . $service['image']) }}"
+                            alt="{{ $service['title'] }}"
+                            class="service-card__image"
+                        >
+                        <div class="service-card__content">
+                            <div class="service-card__text">
+                                <h3 class="service-card__title">{{ $service['title'] }}</h3>
+                                <p class="service-card__description">{{ $service['description'] }}</p>
+                            </div>
+                            <a href="#" class="service-card__link">
+                                <span>ПОДРОБНЕЕ</span>
+                                <img src="{{ asset('img/arrow.svg') }}" alt="" aria-hidden="true">
+                            </a>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+        </section>
+
+        <section class="marquee marquee--special" aria-label="Special for you">
+            <div class="marquee__track" aria-hidden="true">
+                @for ($i = 0; $i < 4; $i++)
+                <div class="marquee__set">
+                    @for ($j = 0; $j < 4; $j++)
+                    <span>SPECIAL FOR YOU</span><span class="marquee__separator">•</span>
+                    @endfor
+                </div>
+                @endfor
+            </div>
+        </section>
+
+        <section id="special-offers" class="special-offers" aria-labelledby="special-offers-title">
+            <h2 id="special-offers-title" class="special-offers__title">Специальные предложения</h2>
+
+            <div class="special-offers__grid">
+                @foreach ([
+                    ['image' => 'flower.svg', 'title' => 'ЗАГОЛОВОК'],
+                    ['image' => 'candle.svg', 'title' => 'ЗАГОЛОВОК'],
+                    ['image' => 'body.svg', 'title' => 'ЗАГОЛОВОК'],
+                ] as $offer)
+                    <article class="special-offer">
+                        <img src="{{ asset('img/' . $offer['image']) }}" alt="" aria-hidden="true" class="special-offer__image">
+                        <div class="special-offer__content">
+                            <div>
+                                <h3 class="special-offer__title">{{ $offer['title'] }}</h3>
+                                <p class="special-offer__description">Место для текста предложения</p>
+                            </div>
+                            <a href="#" class="special-offer__link">
+                                <span>ПОДРОБНЕЕ</span>
+                                <img src="{{ asset('img/arrow.svg') }}" alt="" aria-hidden="true">
+                            </a>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+
+            <a href="#booking" class="hero__button special-offers__booking">
+                <span>Запись онлайн</span>
+                <img src="{{ asset('img/heart.svg') }}" alt="" aria-hidden="true">
+            </a>
+        </section>
+
+        <section id="reviews" class="reviews" aria-labelledby="reviews-title">
+            <h2 id="reviews-title" class="reviews__title">Отзывы наших гостей</h2>
+
+            <div class="swiper reviews__swiper">
+                <div class="swiper-wrapper">
+                    @foreach (range(1, 15) as $review)
+                        <div class="swiper-slide reviews__slide">
+                            <article class="review-card">
+                                <img
+                                    src="{{ asset("img/reviews/{$review}.webp") }}"
+                                    alt="Отзыв гостя Мило Ми"
+                                    class="review-card__image"
+                                >
+                            </article>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="reviews__navigation" aria-label="Навигация по отзывам">
+                <button type="button" class="reviews__button reviews__button--previous" aria-label="Предыдущий отзыв">
+                    <img src="{{ asset('img/arrow.svg') }}" alt="" aria-hidden="true">
+                </button>
+                <button type="button" class="reviews__button reviews__button--next" aria-label="Следующий отзыв">
+                    <img src="{{ asset('img/arrow.svg') }}" alt="" aria-hidden="true">
+                </button>
+            </div>
+        </section>
+
+        <section class="invitation-envelope" aria-label="Приглашение в пространство Мило Ми">
+            <img
+                src="{{ asset('img/evenlope-background.webp') }}"
+                alt=""
+                aria-hidden="true"
+                class="invitation-envelope__background"
+            >
+            <img
+                src="{{ asset('img/evenlope.webp') }}"
+                alt="Приглашение в пространство Мило Ми"
+                class="invitation-envelope__image"
+            >
+        </section>
+
+        <section class="marquee marquee--after-envelope" aria-label="SPA, массаж, косметология, лазерная эпиляция">
+            <div class="marquee__track" aria-hidden="true">
+                @for ($i = 0; $i < 4; $i++)
+                <div class="marquee__set">
+                    <span>SPA</span><span class="marquee__separator">•</span>
+                    <span>МАССАЖ</span><span class="marquee__separator">•</span>
+                    <span>КОСМЕТОЛОГИЯ</span><span class="marquee__separator">•</span>
+                    <span>ЛАЗЕРНАЯ ЭПИЛЯЦИЯ</span><span class="marquee__separator">•</span>
+                </div>
+                @endfor
+            </div>
+        </section>
+
+        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A5e0b42e677af830606bec2069b054148bd72178d667aea4d02d626c0110d711f&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+
+        <section id="contacts" class="contacts" aria-labelledby="contacts-title">
+            <h2 id="contacts-title" class="contacts__title">Контакты</h2>
+
+            <div class="contacts__content">
+                <img src="{{ asset('img/contact-photo.webp') }}" alt="Гостья пространства Мило Ми" class="contacts__photo">
+
+                <div class="contacts__details">
+                    <div>
+                        <h3 class="contacts__subtitle">Ждем вас по адресу</h3>
+                        <p class="contacts__text">г. Калининград, ул. Стрелецкая 21А, помещение 1 (ориентир напротив мостика)</p>
+                    </div>
+
+                    <div class="contacts__item">
+                        <h3 class="contacts__subtitle">График работы</h3>
+                        <p class="contacts__text">10:00 - 20:00 ежедневно</p>
+                    </div>
+
+                    <div class="contacts__socials">
+                        <a href="#" aria-label="Telegram" class="header__social-link flex h-[65px] w-[65px] items-center justify-center rounded-full">
+                            <img src="{{ asset('img/telegram.svg') }}" alt="" class="max-h-[29px] max-w-[29px]">
+                        </a>
+                        <a href="#" aria-label="WhatsApp" class="header__social-link flex h-[65px] w-[65px] items-center justify-center rounded-full">
+                            <img src="{{ asset('img/whatsapp.svg') }}" alt="" class="max-h-[29px] max-w-[29px]">
+                        </a>
+                        <a href="#" aria-label="MAX" class="header__social-link flex h-[65px] w-[65px] items-center justify-center rounded-full">
+                            <img src="{{ asset('img/max.svg') }}" alt="" class="max-h-[29px] max-w-[29px]">
+                        </a>
+                    </div>
+
+                    <img src="{{ asset('img/logo.svg') }}" alt="Milomi" class="contacts__logo">
+                </div>
+            </div>
+        </section>
     </main>
 </body>
 </html>
