@@ -3,7 +3,31 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Milomi') }}</title>
+    <title>Мило Ми — пространство заботы о себе</title>
+    <meta name="description" content="Мило Ми — пространство заботы о себе: SPA-программы, массаж, косметология и лазерная эпиляция в атмосфере спокойствия и комфорта.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#F5EEE8">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="icon" href="{{ asset('img/favicon.svg') }}" type="image/svg+xml">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Мило Ми">
+    <meta property="og:title" content="Мило Ми — пространство заботы о себе">
+    <meta property="og:description" content="SPA-программы, массаж, косметология и лазерная эпиляция в атмосфере спокойствия и комфорта.">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('img/og-image.jpg') }}">
+    <meta property="og:image:secure_url" content="{{ asset('img/og-image.jpg') }}">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Мило Ми — пространство заботы о себе">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Мило Ми — пространство заботы о себе">
+    <meta name="twitter:description" content="SPA-программы, массаж, косметология и лазерная эпиляция в атмосфере спокойствия и комфорта.">
+    <meta name="twitter:image" content="{{ asset('img/og-image.jpg') }}">
+    <meta name="twitter:image:alt" content="Мило Ми — пространство заботы о себе">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-page-background font-sans text-text antialiased">
