@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
     <title>Мило Ми — пространство заботы о себе</title>
     <meta name="description" content="Мило Ми — пространство заботы о себе: SPA-программы, массаж, косметология и лазерная эпиляция в атмосфере спокойствия и комфорта.">
     <meta name="robots" content="index, follow">
@@ -31,15 +32,15 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-page-background font-sans text-text antialiased">
-    <header class="h-[92px] border-b border-primary px-[65px]">
+    <header class="site-header h-[92px] border-b border-primary px-[65px] max-md:h-auto max-md:border-b-0 max-md:p-5">
         <div class="flex h-full items-center justify-between">
-            <a href="/" aria-label="Главная страница" class="shrink-0">
+            <a href="/" aria-label="Главная страница" class="header__logo shrink-0">
                 <img src="{{ asset('img/logo.svg') }}" alt="Milomi" class="h-[48px] w-auto">
             </a>
 
-            <nav aria-label="Основная навигация">
+            <nav aria-label="Основная навигация" class="header__nav max-md:hidden">
                 <ul class="flex items-center gap-8 text-[18px] text-primary">
-                    <li><a href="#about" class="header__nav-link">О НАС</a></li>
+                    <li><a href="#mission" class="header__nav-link">О НАС</a></li>
                     <li><a href="#services" class="header__nav-link">УСЛУГИ</a></li>
                     <li><a href="#special-offers" class="header__nav-link">СПЕЦ.ПРЕДЛОЖЕНИЯ</a></li>
                     <li><a href="#reviews" class="header__nav-link">ОТЗЫВЫ</a></li>
@@ -47,7 +48,7 @@
                 </ul>
             </nav>
 
-            <div class="flex items-center gap-[11px]">
+            <div class="header__socials flex items-center gap-[11px] max-md:hidden">
                 <a href="#" aria-label="Telegram" class="header__social-link flex h-[65px] w-[65px] items-center justify-center rounded-full">
                     <img src="{{ asset('img/telegram.svg') }}" alt="" class="max-h-[29px] max-w-[29px]">
                 </a>
@@ -58,11 +59,80 @@
                     <img src="{{ asset('img/max.svg') }}" alt="" class="max-h-[29px] max-w-[29px]">
                 </a>
             </div>
+
+            <div class="mobile-header__actions">
+                <a href="tel:+79814630011" class="mobile-header__phone">8 (981) 463-00-11</a>
+                <button type="button" class="mobile-header__menu" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu">
+                    <img src="{{ asset('img/burger.svg') }}" alt="" aria-hidden="true">
+                </button>
+            </div>
         </div>
     </header>
 
+    <aside id="mobile-menu" class="mobile-menu" aria-hidden="true">
+        <button type="button" class="mobile-menu__close" aria-label="Закрыть меню">
+            <img src="{{ asset('img/cross.svg') }}" alt="" aria-hidden="true">
+        </button>
+
+        <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
+            <ul class="mobile-menu__list">
+                <li><img src="{{ asset('img/heart-dark.svg') }}" alt="" aria-hidden="true"><a href="#mission">О нас</a></li>
+                <li><img src="{{ asset('img/heart-dark.svg') }}" alt="" aria-hidden="true"><a href="#services">Услуги</a></li>
+                <li><img src="{{ asset('img/heart-dark.svg') }}" alt="" aria-hidden="true"><a href="#special-offers">Спецпредложения</a></li>
+                <li><img src="{{ asset('img/heart-dark.svg') }}" alt="" aria-hidden="true"><a href="#reviews">Отзывы</a></li>
+                <li><img src="{{ asset('img/heart-dark.svg') }}" alt="" aria-hidden="true"><a href="#contacts">Контакты</a></li>
+            </ul>
+        </nav>
+
+        <div class="mobile-menu__footer">
+            <p class="mobile-menu__message">Наполняем любовью к себе и миру</p>
+            <div class="mobile-menu__socials">
+                <a href="#" aria-label="Telegram" class="mobile-menu__social-link"><img src="{{ asset('img/telegram.svg') }}" alt=""></a>
+                <a href="#" aria-label="WhatsApp" class="mobile-menu__social-link"><img src="{{ asset('img/whatsapp.svg') }}" alt=""></a>
+                <a href="#" aria-label="MAX" class="mobile-menu__social-link"><img src="{{ asset('img/max.svg') }}" alt=""></a>
+            </div>
+        </div>
+    </aside>
+
     <main>
-        <section class="hero" aria-labelledby="hero-title">
+        <section class="mobile-hero" aria-labelledby="mobile-hero-title">
+            <div class="mobile-hero__banner">
+                <img src="{{ asset('img/top-banner-mob.webp') }}" alt="Интерьер пространства Мило Ми" class="mobile-hero__image">
+                <div class="mobile-hero__banner-content">
+                    <h1 id="mobile-hero-title" class="mobile-hero__title">Пространство заботы о себе — Мило Ми</h1>
+                    <a href="#booking" class="hero__button mobile-hero__button">
+                        <span>Запись онлайн</span>
+                        <img src="{{ asset('img/heart.svg') }}" alt="" aria-hidden="true">
+                    </a>
+                </div>
+            </div>
+
+            <div class="marquee mobile-hero__marquee" aria-label="SPA, массаж, косметология, лазерная эпиляция">
+                <div class="marquee__track" aria-hidden="true">
+                    @for ($i = 0; $i < 4; $i++)
+                    <div class="marquee__set">
+                        <span>SPA</span><span class="marquee__separator">•</span>
+                        <span>МАССАЖ</span><span class="marquee__separator">•</span>
+                        <span>КОСМЕТОЛОГИЯ</span><span class="marquee__separator">•</span>
+                        <span>ЛАЗЕРНАЯ ЭПИЛЯЦИЯ</span><span class="marquee__separator">•</span>
+                    </div>
+                    @endfor
+                </div>
+            </div>
+
+            <div class="mobile-hero__intro">
+                <p class="mobile-hero__description">
+                    «Milo Mi в переводе означает приятно. В этом названии — философия нашего пространства.
+                    Мы верим, что истинная забота проявляется в деталях: в тёплой атмосфере, искреннем
+                    внимании и ощущении комфорта, которое сопровождает вас с первых минут.»
+                </p>
+                <p class="mobile-hero__quote">— Мария, основательница пространства</p>
+            </div>
+
+            <img src="{{ asset('img/top-photo.webp') }}" alt="Основательница пространства Мило Ми" class="mobile-hero__photo">
+        </section>
+
+        <section class="hero desktop-hero" aria-labelledby="hero-title">
             <div class="hero__content">
                 <h1 id="hero-title" class="hero__title">Пространство заботы о себе — Мило Ми</h1>
 
@@ -87,7 +157,7 @@
             <img src="{{ asset('img/top-photo.webp') }}" alt="Основательница пространства Мило Ми" class="hero__photo">
         </section>
 
-        <section class="marquee" aria-label="SPA, массаж, косметология, лазерная эпиляция">
+        <section class="marquee desktop-hero-marquee" aria-label="SPA, массаж, косметология, лазерная эпиляция">
             <div class="marquee__track" aria-hidden="true">
                 @for ($i = 0; $i < 4; $i++)
                 <div class="marquee__set">
@@ -100,8 +170,9 @@
             </div>
         </section>
 
-        <section class="mission" aria-labelledby="mission-title">
-            <img src="{{ asset('img/heart-title.webp') }}" alt="" aria-hidden="true" class="mission__background">
+        <section id="mission" class="mission" aria-labelledby="mission-title">
+            <img src="{{ asset('img/heart-title.webp') }}" alt="" aria-hidden="true" class="mission__background mission__background--desktop">
+            <img src="{{ asset('img/top-heart-mob.webp') }}" alt="" aria-hidden="true" class="mission__background mission__background--mobile">
             <div class="mission__content">
                 <h2 id="mission-title" class="mission__title">НАША МИССИЯ</h2>
                 <p class="mission__description">
@@ -144,6 +215,12 @@
                 </div>
 
                 <img src="{{ asset('img/photo-2.webp') }}" alt="Гостья пространства Мило Ми" class="details__photo">
+
+                <div class="details__media-mobile">
+                    <img src="{{ asset('img/bow.svg') }}" alt="" aria-hidden="true" class="details__media-bow">
+                    <img src="{{ asset('img/photo-2.webp') }}" alt="Гостья пространства Мило Ми" class="details__media-photo">
+                    <img src="{{ asset('img/bow.svg') }}" alt="" aria-hidden="true" class="details__media-bow">
+                </div>
 
                 <ul class="details__list">
                     <li><img src="{{ asset('img/heart-dark.svg') }}" alt="" aria-hidden="true">Атмосфера спокойствия</li>
@@ -268,10 +345,24 @@
                 class="invitation-envelope__background"
             >
             <img
-                src="{{ asset('img/evenlope.webp') }}"
+                src="{{ asset('img/evenlop-mod.webp') }}"
                 alt="Приглашение в пространство Мило Ми"
                 class="invitation-envelope__image"
             >
+        </section>
+
+        <section class="gift-certificate" aria-labelledby="gift-certificate-title">
+            <div class="gift-certificate__content">
+                <h2 id="gift-certificate-title" class="gift-certificate__title">Подарите приятные эмоции</h2>
+                <p class="gift-certificate__description">
+                    Сертификат можно оформить на любую услугу или определённую сумму, оставив выбор получателю.
+                    Можем подготовить в электронном или бумажном виде.
+                </p>
+                <a href="#booking" class="hero__button gift-certificate__button">
+                    <span>Приобрести сертификат</span>
+                    <img src="{{ asset('img/heart.svg') }}" alt="" aria-hidden="true">
+                </a>
+            </div>
         </section>
 
         <section class="marquee marquee--after-envelope" aria-label="SPA, массаж, косметология, лазерная эпиляция">
@@ -293,7 +384,7 @@
             <h2 id="contacts-title" class="contacts__title">Контакты</h2>
 
             <div class="contacts__content">
-                <img src="{{ asset('img/contact-photo.webp') }}" alt="Гостья пространства Мило Ми" class="contacts__photo">
+                <img src="{{ asset('img/contact-photo-new.webp') }}" alt="Гостья пространства Мило Ми" class="contacts__photo">
 
                 <div class="contacts__details">
                     <div>
@@ -322,6 +413,19 @@
                 </div>
             </div>
         </section>
+
+        <footer class="site-footer">
+            <picture>
+                <source media="(max-width: 767px)" srcset="{{ asset('img/footer-text-mobile.webp') }}">
+                <img src="{{ asset('img/footer-text.webp') }}" alt="Приглашаем вас в пространство Мило Ми, где можно наполниться и восстановиться" class="site-footer__invitation">
+            </picture>
+        </footer>
     </main>
+
+    <script>
+        if (window.matchMedia('(max-width: 1023px)').matches) {
+            document.querySelectorAll('.desktop-hero, .desktop-hero-marquee').forEach((element) => element.remove());
+        }
+    </script>
 </body>
 </html>

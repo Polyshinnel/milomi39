@@ -23,11 +23,11 @@ const initGalleryCarousel = () => {
         },
         breakpoints: {
             0: {
-                slidesPerView: 1,
-                spaceBetween: 16,
+                slidesPerView: 3,
+                spaceBetween: 8,
             },
             768: {
-                slidesPerView: 2,
+                slidesPerView: 3,
                 spaceBetween: 24,
             },
             1800: {
@@ -78,14 +78,48 @@ const initReviewsCarousel = () => {
     });
 };
 
+const initMobileMenu = () => {
+    const menu = document.querySelector('.mobile-menu');
+    const openButton = document.querySelector('.mobile-header__menu');
+    const closeButton = document.querySelector('.mobile-menu__close');
+
+    if (!menu || !openButton || !closeButton) {
+        return;
+    }
+
+    const closeMenu = () => {
+        menu.classList.remove('is-open');
+        menu.setAttribute('aria-hidden', 'true');
+        openButton.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('mobile-menu-open');
+    };
+
+    openButton.addEventListener('click', () => {
+        menu.classList.add('is-open');
+        menu.setAttribute('aria-hidden', 'false');
+        openButton.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('mobile-menu-open');
+    });
+
+    closeButton.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a[href^="#"]').forEach((link) => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeMenu();
+        }
+    });
+};
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         initGalleryCarousel();
         initReviewsCarousel();
+        initMobileMenu();
     }, { once: true });
 } else {
     initGalleryCarousel();
     initReviewsCarousel();
+    initMobileMenu();
 }
 
 export { Swiper };
