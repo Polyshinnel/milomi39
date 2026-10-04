@@ -106,7 +106,9 @@ const initServicesCarousel = () => {
                 },
             });
         } else if (!desktop.matches && carousel.swiper) {
-            carousel.swiper.destroy(true, true);
+            // Keep Swiper's structural classes so the mobile grid rules still
+            // target the wrapper and every service card after teardown.
+            carousel.swiper.destroy(false, true);
         }
     };
 

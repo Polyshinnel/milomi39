@@ -239,7 +239,7 @@
         <section id="services" class="services" aria-labelledby="services-title">
             <h2 id="services-title" class="services__title">В НАШЕМ ПРОСТРАНСТВЕ ВАС ЖДУТ:</h2>
 
-            <div class="services__grid services__swiper swiper">
+            <div class="services__grid services__swiper services__desktop swiper">
                 <div class="swiper-wrapper">
                 @foreach ($homeServices as $service)
                     <article class="service-card swiper-slide">
@@ -257,6 +257,24 @@
                     </article>
                 @endforeach
                 </div>
+            </div>
+
+            <div class="services__mobile-list" aria-label="Услуги">
+                @foreach ($homeServices as $service)
+                    <article class="service-card">
+                        <img src="{{ $service['image_url'] }}" alt="{{ $service['title'] }}" class="service-card__image">
+                        <div class="service-card__content">
+                            <div class="service-card__text">
+                                <h3 class="service-card__title">{{ $service['title'] }}</h3>
+                                <p class="service-card__description">{{ $service['description'] }}</p>
+                            </div>
+                            <a href="{{ route('price-list') . '#' . $service['id'] }}" class="service-card__link">
+                                <span>ПОДРОБНЕЕ</span>
+                                <img src="{{ asset('img/arrow.svg') }}" alt="" aria-hidden="true">
+                            </a>
+                        </div>
+                    </article>
+                @endforeach
             </div>
 
             <div class="services__navigation reviews__navigation" aria-label="Навигация по услугам">
