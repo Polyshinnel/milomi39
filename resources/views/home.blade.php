@@ -29,7 +29,9 @@
     <meta name="twitter:description" content="SPA-программы, массаж, косметология и лазерная эпиляция в атмосфере спокойствия и комфорта.">
     <meta name="twitter:image" content="{{ asset('img/og-image.jpg') }}">
     <meta name="twitter:image:alt" content="Мило Ми — пространство заботы о себе">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.js"></script>
 </head>
 <body class="min-h-screen bg-page-background font-sans text-text antialiased">
     <header class="site-header h-[92px] border-b border-primary px-[65px] max-md:h-auto max-md:border-b-0 max-md:p-5">
@@ -42,6 +44,7 @@
                 <ul class="flex items-center gap-8 text-[18px] text-primary">
                     <li><a href="#mission" class="header__nav-link">О НАС</a></li>
                     <li><a href="#services" class="header__nav-link">УСЛУГИ</a></li>
+                    <li><a href="{{ route('price-list') }}" class="header__nav-link">ПРАЙС ЛИСТ</a></li>
                     <li><a href="#special-offers" class="header__nav-link">СПЕЦ.ПРЕДЛОЖЕНИЯ</a></li>
                     <li><a href="#reviews" class="header__nav-link">ОТЗЫВЫ</a></li>
                     <li><a href="#contacts" class="header__nav-link">КОНТАКТЫ</a></li>
@@ -49,19 +52,19 @@
             </nav>
 
             <div class="header__socials flex items-center gap-[11px] max-md:hidden">
-                <a href="#" aria-label="Telegram" class="header__social-link flex h-[65px] w-[65px] items-center justify-center rounded-full">
+                <a href="{{ $contact->telegram_url }}" aria-label="Telegram" target="_blank" rel="noopener noreferrer" class="header__social-link flex h-[65px] w-[65px] items-center justify-center rounded-full">
                     <img src="{{ asset('img/telegram.svg') }}" alt="" class="max-h-[29px] max-w-[29px]">
                 </a>
-                <a href="#" aria-label="WhatsApp" class="header__social-link flex h-[65px] w-[65px] items-center justify-center rounded-full">
+                <a href="{{ $contact->whatsapp_url }}" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer" class="header__social-link flex h-[65px] w-[65px] items-center justify-center rounded-full">
                     <img src="{{ asset('img/whatsapp.svg') }}" alt="" class="max-h-[29px] max-w-[29px]">
                 </a>
-                <a href="#" aria-label="MAX" class="header__social-link flex h-[65px] w-[65px] items-center justify-center rounded-full">
+                <a href="{{ $contact->max_url }}" aria-label="MAX" target="_blank" rel="noopener noreferrer" class="header__social-link flex h-[65px] w-[65px] items-center justify-center rounded-full">
                     <img src="{{ asset('img/max.svg') }}" alt="" class="max-h-[29px] max-w-[29px]">
                 </a>
             </div>
 
             <div class="mobile-header__actions">
-                <a href="tel:+79814630011" class="mobile-header__phone">8 (981) 463-00-11</a>
+                <a href="tel:{{ $contact->phoneLink() }}" class="mobile-header__phone">{{ $contact->phone }}</a>
                 <button type="button" class="mobile-header__menu" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu">
                     <img src="{{ asset('img/burger.svg') }}" alt="" aria-hidden="true">
                 </button>
@@ -78,6 +81,7 @@
             <ul class="mobile-menu__list">
                 <li><img src="{{ asset('img/heart-dark.svg') }}" alt="" aria-hidden="true"><a href="#mission">О нас</a></li>
                 <li><img src="{{ asset('img/heart-dark.svg') }}" alt="" aria-hidden="true"><a href="#services">Услуги</a></li>
+                <li><img src="{{ asset('img/heart-dark.svg') }}" alt="" aria-hidden="true"><a href="{{ route('price-list') }}">Прайс лист</a></li>
                 <li><img src="{{ asset('img/heart-dark.svg') }}" alt="" aria-hidden="true"><a href="#special-offers">Спецпредложения</a></li>
                 <li><img src="{{ asset('img/heart-dark.svg') }}" alt="" aria-hidden="true"><a href="#reviews">Отзывы</a></li>
                 <li><img src="{{ asset('img/heart-dark.svg') }}" alt="" aria-hidden="true"><a href="#contacts">Контакты</a></li>
@@ -87,9 +91,9 @@
         <div class="mobile-menu__footer">
             <p class="mobile-menu__message">Наполняем любовью к себе и миру</p>
             <div class="mobile-menu__socials">
-                <a href="#" aria-label="Telegram" class="mobile-menu__social-link"><img src="{{ asset('img/telegram.svg') }}" alt=""></a>
-                <a href="#" aria-label="WhatsApp" class="mobile-menu__social-link"><img src="{{ asset('img/whatsapp.svg') }}" alt=""></a>
-                <a href="#" aria-label="MAX" class="mobile-menu__social-link"><img src="{{ asset('img/max.svg') }}" alt=""></a>
+                <a href="{{ $contact->telegram_url }}" aria-label="Telegram" target="_blank" rel="noopener noreferrer" class="mobile-menu__social-link"><img src="{{ asset('img/telegram.svg') }}" alt=""></a>
+                <a href="{{ $contact->whatsapp_url }}" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer" class="mobile-menu__social-link"><img src="{{ asset('img/whatsapp.svg') }}" alt=""></a>
+                <a href="{{ $contact->max_url }}" aria-label="MAX" target="_blank" rel="noopener noreferrer" class="mobile-menu__social-link"><img src="{{ asset('img/max.svg') }}" alt=""></a>
             </div>
         </div>
     </aside>
@@ -100,7 +104,7 @@
                 <img src="{{ asset('img/top-banner-mob.webp') }}" alt="Интерьер пространства Мило Ми" class="mobile-hero__image">
                 <div class="mobile-hero__banner-content">
                     <h1 id="mobile-hero-title" class="mobile-hero__title">Пространство заботы о себе — Мило Ми</h1>
-                    <a href="#booking" class="hero__button mobile-hero__button">
+                    <a href="{{ $contact->online_booking_url }}" target="_blank" rel="noopener noreferrer" class="hero__button mobile-hero__button">
                         <span>Запись онлайн</span>
                         <img src="{{ asset('img/heart.svg') }}" alt="" aria-hidden="true">
                     </a>
@@ -144,7 +148,7 @@
 
                 <p class="hero__quote">— Мария, основательница пространства.</p>
 
-                <a href="#booking" class="hero__button">
+                <a href="{{ $contact->online_booking_url }}" target="_blank" rel="noopener noreferrer" class="hero__button">
                     <span>Запись онлайн</span>
                     <img src="{{ asset('img/heart.svg') }}" alt="" aria-hidden="true">
                 </a>
@@ -233,35 +237,35 @@
         </section>
 
         <section id="services" class="services" aria-labelledby="services-title">
-            <h2 id="services-title" class="services__title">В НАШЕМ ПРОСТРАНСТВА ВАС ЖДУТ:</h2>
+            <h2 id="services-title" class="services__title">В НАШЕМ ПРОСТРАНСТВЕ ВАС ЖДУТ:</h2>
 
-            <div class="services__grid">
-                @foreach ([
-                    ['image' => '1.webp', 'title' => 'МАССАЖ ЛИЦА И ТЕЛА', 'description' => 'Расслабляющие и лифтинг программы'],
-                    ['image' => '2.webp', 'title' => 'ОСОБЕННЫЕ СПА-ПРОГРАММЫ ПОД СОСТОЯНИЕ', 'description' => 'Глубокое восстановление и релаксация'],
-                    ['image' => '3.webp', 'title' => 'САМАЯ ЗАБОТЛИВАЯ ЛАЗЕРНАЯ ЭПИЛЯЦИЯ', 'description' => 'Комфорт и результат с первой процедуры'],
-                    ['image' => '4.webp', 'title' => 'ВЫГОДНЫЕ КОМПЛЕКСЫ', 'description' => 'Подбор процедур под ваш запрос'],
-                    ['image' => '5.webp', 'title' => 'КОСМЕТОЛОГИЯ БЕЗ УКОЛОВ', 'description' => 'Уход, который работает на ваш результат'],
-                    ['image' => '6.webp', 'title' => 'ПРОФЕССИОНАЛЬНАЯ КОСМЕТИКА', 'description' => 'Подбор средств для домашнего ухода'],
-                ] as $service)
-                    <article class="service-card">
-                        <img
-                            src="{{ asset('img/service/' . $service['image']) }}"
-                            alt="{{ $service['title'] }}"
-                            class="service-card__image"
-                        >
+            <div class="services__grid services__swiper swiper">
+                <div class="swiper-wrapper">
+                @foreach ($homeServices as $service)
+                    <article class="service-card swiper-slide">
+                        <img src="{{ $service['image_url'] }}" alt="{{ $service['title'] }}" class="service-card__image">
                         <div class="service-card__content">
                             <div class="service-card__text">
                                 <h3 class="service-card__title">{{ $service['title'] }}</h3>
                                 <p class="service-card__description">{{ $service['description'] }}</p>
                             </div>
-                            <a href="#" class="service-card__link">
+                            <a href="{{ route('price-list') . '#' . $service['id'] }}" class="service-card__link">
                                 <span>ПОДРОБНЕЕ</span>
                                 <img src="{{ asset('img/arrow.svg') }}" alt="" aria-hidden="true">
                             </a>
                         </div>
                     </article>
                 @endforeach
+                </div>
+            </div>
+
+            <div class="services__navigation reviews__navigation" aria-label="Навигация по услугам">
+                <button type="button" class="reviews__button reviews__button--previous services__button--previous" aria-label="Предыдущая услуга">
+                    <img src="{{ asset('img/arrow.svg') }}" alt="" aria-hidden="true">
+                </button>
+                <button type="button" class="reviews__button services__button--next" aria-label="Следующая услуга">
+                    <img src="{{ asset('img/arrow.svg') }}" alt="" aria-hidden="true">
+                </button>
             </div>
         </section>
 
@@ -281,19 +285,15 @@
             <h2 id="special-offers-title" class="special-offers__title">Специальные предложения</h2>
 
             <div class="special-offers__grid">
-                @foreach ([
-                    ['image' => 'flower.svg', 'title' => 'ЗАГОЛОВОК'],
-                    ['image' => 'candle.svg', 'title' => 'ЗАГОЛОВОК'],
-                    ['image' => 'body.svg', 'title' => 'ЗАГОЛОВОК'],
-                ] as $offer)
+                @foreach ($specialOffers as $offer)
                     <article class="special-offer">
-                        <img src="{{ asset('img/' . $offer['image']) }}" alt="" aria-hidden="true" class="special-offer__image">
+                        <img src="{{ $offer['image_url'] }}" alt="" aria-hidden="true" class="special-offer__image">
                         <div class="special-offer__content">
                             <div>
                                 <h3 class="special-offer__title">{{ $offer['title'] }}</h3>
-                                <p class="special-offer__description">Место для текста предложения</p>
+                                <p class="special-offer__description">{{ $offer['description'] }}</p>
                             </div>
-                            <a href="#" class="special-offer__link">
+                            <a href="{{ route('special-offers.show', $offer['slug']) }}" class="special-offer__link">
                                 <span>ПОДРОБНЕЕ</span>
                                 <img src="{{ asset('img/arrow.svg') }}" alt="" aria-hidden="true">
                             </a>
@@ -302,7 +302,7 @@
                 @endforeach
             </div>
 
-            <a href="#booking" class="hero__button special-offers__booking">
+            <a href="{{ $contact->online_booking_url }}" target="_blank" rel="noopener noreferrer" class="hero__button special-offers__booking">
                 <span>Запись онлайн</span>
                 <img src="{{ asset('img/heart.svg') }}" alt="" aria-hidden="true">
             </a>
@@ -313,11 +313,11 @@
 
             <div class="swiper reviews__swiper">
                 <div class="swiper-wrapper">
-                    @foreach (range(1, 15) as $review)
+                    @foreach ($reviews as $review)
                         <div class="swiper-slide reviews__slide">
                             <article class="review-card">
                                 <img
-                                    src="{{ asset("img/reviews/{$review}.webp") }}"
+                                    src="{{ $review['image_url'] }}"
                                     alt="Отзыв гостя Мило Ми"
                                     class="review-card__image"
                                 >
@@ -345,20 +345,21 @@
                 class="invitation-envelope__background"
             >
             <img
-                src="{{ asset('img/evenlop-mod.webp') }}"
-                alt="Приглашение в пространство Мило Ми"
+                src="{{ asset('img/sertificate-milo.webp') }}"
+                alt="Подарочный сертификат Мило Ми"
                 class="invitation-envelope__image"
             >
         </section>
 
         <section class="gift-certificate" aria-labelledby="gift-certificate-title">
             <div class="gift-certificate__content">
+                <h2 class="gift-certificate__eyebrow">Подарочный сертификат</h2>
                 <h2 id="gift-certificate-title" class="gift-certificate__title">Подарите приятные эмоции</h2>
                 <p class="gift-certificate__description">
                     Сертификат можно оформить на любую услугу или определённую сумму, оставив выбор получателю.
                     Можем подготовить в электронном или бумажном виде.
                 </p>
-                <a href="#booking" class="hero__button gift-certificate__button">
+                <a href="{{ $contact->max_url }}" target="_blank" rel="noopener noreferrer" class="hero__button gift-certificate__button">
                     <span>Приобрести сертификат</span>
                     <img src="{{ asset('img/heart.svg') }}" alt="" aria-hidden="true">
                 </a>
@@ -378,40 +379,13 @@
             </div>
         </section>
 
-        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A5e0b42e677af830606bec2069b054148bd72178d667aea4d02d626c0110d711f&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+        <div id="map" class="contacts-map" role="application" aria-label="Карта расположения пространства Мило Ми"
+             data-mapbox-token="{{ config('services.mapbox.public_token') }}"
+             data-latitude="{{ $contact->latitude }}" data-longitude="{{ $contact->longitude }}" data-address="{{ $contact->address }}"></div>
 
         <section id="contacts" class="contacts" aria-labelledby="contacts-title">
             <h2 id="contacts-title" class="contacts__title">Контакты</h2>
-
-            <div class="contacts__content">
-                <img src="{{ asset('img/contact-photo-new.webp') }}" alt="Гостья пространства Мило Ми" class="contacts__photo">
-
-                <div class="contacts__details">
-                    <div>
-                        <h3 class="contacts__subtitle">Ждем вас по адресу</h3>
-                        <p class="contacts__text">г. Калининград, ул. Стрелецкая 21А, помещение 1 (ориентир напротив мостика)</p>
-                    </div>
-
-                    <div class="contacts__item">
-                        <h3 class="contacts__subtitle">График работы</h3>
-                        <p class="contacts__text">10:00 - 20:00 ежедневно</p>
-                    </div>
-
-                    <div class="contacts__socials">
-                        <a href="#" aria-label="Telegram" class="header__social-link flex h-[65px] w-[65px] items-center justify-center rounded-full">
-                            <img src="{{ asset('img/telegram.svg') }}" alt="" class="max-h-[29px] max-w-[29px]">
-                        </a>
-                        <a href="#" aria-label="WhatsApp" class="header__social-link flex h-[65px] w-[65px] items-center justify-center rounded-full">
-                            <img src="{{ asset('img/whatsapp.svg') }}" alt="" class="max-h-[29px] max-w-[29px]">
-                        </a>
-                        <a href="#" aria-label="MAX" class="header__social-link flex h-[65px] w-[65px] items-center justify-center rounded-full">
-                            <img src="{{ asset('img/max.svg') }}" alt="" class="max-h-[29px] max-w-[29px]">
-                        </a>
-                    </div>
-
-                    <img src="{{ asset('img/logo.svg') }}" alt="Milomi" class="contacts__logo">
-                </div>
-            </div>
+            @include('partials.contact-details')
         </section>
 
         <footer class="site-footer">
